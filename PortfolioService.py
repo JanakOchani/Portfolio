@@ -32,6 +32,7 @@ class PortfolioManager:
         print(f" Begin populating current price against each stock in portfolio {len(my_portfolio_stock_list)}")
         for my_stock_in_list in my_portfolio_stock_list:
             my_stock_in_list.current_price = StockPriceService.get_latest_price(my_stock_in_list.code,my_stock_in_list.cost_per_share)
+            my_stock_in_list.year_high = StockPriceUtil.get52WkHigh(my_stock_in_list.code)
 
         print(f" Completed populating current price against each stock in portfolio {len(my_portfolio_stock_list)}")
         return my_portfolio_stock_list
@@ -42,7 +43,7 @@ class PortfolioManager:
             stock.total_cost = stock.shares*stock.cost_per_share
             stock.total_current_value = stock.shares*stock.current_price
             stock.profit_or_loss = stock.total_current_value - stock.total_cost
-            stock.year_high = stock.get52WkHigh()
+            stock.year_high = stock.get52WkHigh(stock.code)
         print(" Completed computing portfolio data now... ")
         return my_portfolio_stock_list
 
