@@ -30,9 +30,10 @@ class PortfolioManager:
     ## This method is going to call APIs to get the price for each of the stock in put it in Stock object
     def populatePrices(self,my_portfolio_stock_list):
         print(f" Begin populating current price against each stock in portfolio {len(my_portfolio_stock_list)}")
+        stock_price_util = StockPriceUtil()
         for my_stock_in_list in my_portfolio_stock_list:
             my_stock_in_list.current_price = StockPriceService.get_latest_price(my_stock_in_list.code,my_stock_in_list.cost_per_share)
-            my_stock_in_list.year_high = StockPriceUtil.get52WkHigh(my_stock_in_list.code)
+            my_stock_in_list.year_high = stock_price_util.get52WkHigh(my_stock_in_list.code)
 
         print(f" Completed populating current price against each stock in portfolio {len(my_portfolio_stock_list)}")
         return my_portfolio_stock_list
