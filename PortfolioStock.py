@@ -9,8 +9,11 @@ class Stock:
 
         #following i will get from API
         self.current_price = 0.0
+        self.year_high = 0.0
+
 
         # following portfolio will be computed
         self.profit_or_loss = 0.0
         self.total_current_value = 0.0
         self.total_cost = 0.0
+
