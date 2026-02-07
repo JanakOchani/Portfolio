@@ -10,7 +10,7 @@ class PortfolioManager:
         print(" Portfolio Manager has been instantiated ")
 
 
-    def readPortfolio(self, filename):
+    def __readPortfolio(self, filename):
         stocks=[]
         try:
             print(f" Begin Reading file into Stocks {filename}")
@@ -27,7 +27,7 @@ class PortfolioManager:
         print(f" Completed Reading files into Stocks -  {len(stocks)}")
 
     ## This method is going to call APIs to get the price for each of the stock in put it in Stock object
-    def populatePrices(self,my_portfolio_stock_list):
+    def __populatePrices(self,my_portfolio_stock_list):
         print(f" Begin populating current price against each stock in portfolio {len(my_portfolio_stock_list)}")
         for my_stock_in_list in my_portfolio_stock_list:
             my_stock_in_list.current_price = StockPriceService.get_latest_price(my_stock_in_list.code,my_stock_in_list.cost_per_share)
@@ -35,7 +35,7 @@ class PortfolioManager:
         print(f" Completed populating current price against each stock in portfolio {len(my_portfolio_stock_list)}")
         return my_portfolio_stock_list
 
-    def computePortfolioData(self,my_portfolio_stock_list):
+    def __computePortfolioData(self,my_portfolio_stock_list):
         print(" Begin computing portfolio data now... ")
         for stock in my_portfolio_stock_list:
             stock.total_cost = stock.shares*stock.cost_per_share
@@ -44,18 +44,18 @@ class PortfolioManager:
         print(" Completed computing portfolio data now... ")
         return my_portfolio_stock_list
 
-    def  printPortfolio(self,portfolio):
+    def  __printPortfolio(self,portfolio):
         for stock in portfolio:
             print(f" Stock {stock.code} Total cost is {stock.total_cost} Shares  Current Price is {stock.current_price} Current Value is {stock.total_current_value } and Net Gain is {stock.profit_or_loss}")
 
-    def generatePortfolioReport(self,portfolio, portfolio_file_name):
+    def __generatePortfolioReport(self,portfolio, portfolio_file_name):
         try:
             print("Generating report ")
             with open(f"report_{portfolio_file_name}", mode='w', newline='') as file:
                 writer = csv.writer(file)
                 writer.writerow(["Code","Cost/Share", "Shares", "Total Cost", "Current Price" , "Total Current Value","Profit or Loss"])
                 for stock in portfolio:
-                    writer.writerow([stock.code,stock.cost_per_share, stock.shares, stock.total_cost,stock.current_price, stock.total_current_value,stock.profit_or_loss])
+                    writer.writerow([stock.code,stock.cost_per_share, stock.qshares, stock.total_cost,stock.current_price, stock.total_current_value,stock.profit_or_loss])
         except Exception as error:
             print("Failed to generate report ",error)
 
