@@ -13,7 +13,7 @@ class StockPriceUtil:
         return price
 
     def get52WkHigh(self, ticker):
-        print(" Request to get latest price for given stock ", ticker)
+        print(" Request to get  price for given stock ", ticker)
         tickerDetails = yf.Ticker(ticker)
         #print(tickerDetails)
         #print(tickerDetails.financials)
