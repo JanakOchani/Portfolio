@@ -3,8 +3,10 @@
 # To Test API key put the key in this URL and run it from browser https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=AAPL&apikey=FBZY4H5M9DW404UZ
 # Documentation of API is https://www.alphavantage.co/documentation/#dailyadj
 
+from datetime import date
+
 import requests
-from datetime import datetime, date
+
 #History Prices
 
 # replace the "demo" apikey below with your own key from https://www.alphavantage.co/support/#api-key

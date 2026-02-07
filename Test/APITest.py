@@ -4,7 +4,9 @@
 # Documentation of API is https://www.alphavantage.co/documentation/#dailyadj
 
 import requests
+
 from StockPriceService import StockPriceService
+
 
 def get_latest_price(stock_symbol):
 

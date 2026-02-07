@@ -1,5 +1,3 @@
-from email.policy import default
-
 import requests
 
 from PortfolioEnvironment import PortfolioEnvironment

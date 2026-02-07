@@ -1,6 +1,8 @@
 import csv
+
 from PortfolioStock import Stock
 from StockPriceService import StockPriceService
+
 
 class PortfolioManager:
 
@@ -50,7 +52,7 @@ class PortfolioManager:
         try:
             print("Generating report ")
             with open(f"report_{portfolio_file_name}", mode='w', newline='') as file:
-                writer = csv.writer(file,'\t')
+                writer = csv.writer(file)
                 writer.writerow(["Code","Cost/Share", "Shares", "Total Cost", "Current Price" , "Total Current Value","Profit or Loss"])
                 for stock in portfolio:
                     writer.writerow([stock.code,stock.cost_per_share, stock.shares, stock.total_cost,stock.current_price, stock.total_current_value,stock.profit_or_loss])

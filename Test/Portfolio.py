@@ -1,6 +1,8 @@
 import csv
+
 from PortfolioStock import Stock
 from StockPriceService import StockPriceService
+
 
 def getStocks(filename):
     stocks=[]
