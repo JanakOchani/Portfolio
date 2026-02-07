@@ -9,7 +9,7 @@ class TestClass:
         self.__what_country()
 
     def __what_country(self):
-        print(" My age is ",self.country)
+        print(" My country is ",self.country)
 
 
 
