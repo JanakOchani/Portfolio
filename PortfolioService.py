@@ -44,7 +44,6 @@ class PortfolioManager:
             stock.total_cost = stock.shares*stock.cost_per_share
             stock.total_current_value = stock.shares*stock.current_price
             stock.profit_or_loss = stock.total_current_value - stock.total_cost
-            stock.year_high = stock.get52WkHigh(stock.code)
         print(" Completed computing portfolio data now... ")
         return my_portfolio_stock_list
 
