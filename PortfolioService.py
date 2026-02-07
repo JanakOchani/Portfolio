@@ -40,25 +40,29 @@ class PortfolioManager:
 
     def computePortfolioData(self,my_portfolio_stock_list):
         print(" Begin computing portfolio data now... ")
+        portfolio_value = 0
         for stock in my_portfolio_stock_list:
             stock.total_cost = stock.shares*stock.cost_per_share
             stock.total_current_value = stock.shares*stock.current_price
+            portfolio_value+=stock.total_current_value
             stock.profit_or_loss = stock.total_current_value - stock.total_cost
+        for stock in my_portfolio_stock_list:
+            stock.portfolio_value = round(stock.total_current_value/portfolio_value*100, 2)
         print(" Completed computing portfolio data now... ")
         return my_portfolio_stock_list
 
     def  printPortfolio(self,portfolio):
         for stock in portfolio:
-            print(f" Stock {stock.code} Total cost is {stock.total_cost} Shares  Current Price is {stock.current_price} Current Value is {stock.total_current_value } Net Gain is {stock.profit_or_loss} and 52W High is {stock.year_high}.")
+            print(f" Stock {stock.code} Total cost is {stock.total_cost} Shares  Current Price is {stock.current_price} Current Value is {stock.total_current_value } Net Gain is {stock.profit_or_loss}  52W High is {stock.year_high} and account percentage is {stock.portfolio_value}%.")
 
     def generatePortfolioReport(self,portfolio, portfolio_file_name):
         try:
             print("Generating report ")
             with open(f"report_{portfolio_file_name}", mode='w', newline='') as file:
                 writer = csv.writer(file)
-                writer.writerow(["Code","Cost/Share", "Shares", "Total Cost", "Current Price" , "Total Current Value","Profit or Loss", "52W High"])
+                writer.writerow(["Code","Cost/Share", "Shares", "Total Cost", "Current Price" , "Total Current Value","Profit or Loss", "52W High", "Account Percentage"])
                 for stock in portfolio:
-                    writer.writerow([stock.code,stock.cost_per_share, stock.shares, stock.total_cost,stock.current_price, stock.total_current_value,stock.profit_or_loss,stock.year_high])
+                    writer.writerow([stock.code,stock.cost_per_share, stock.shares, stock.total_cost,stock.current_price, stock.total_current_value,stock.profit_or_loss,stock.year_high, stock.portfolio_value])
         except Exception as error:
             print("Failed to generate report ",error)
 
