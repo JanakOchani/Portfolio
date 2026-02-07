@@ -25,3 +25,21 @@ class StockPriceService:
             stkpriceutil = StockPriceUtil()
             return stkpriceutil.getLatestPrice(stock_symbol)
             #return default_price*1.25 #this is just to move on.. we need to remove this before going live
+
+
+    def get_price(stock_symbol, default_price=0):
+        try:
+            print(f"Stock Code: {stock_symbol}, Initial cost per share: {default_price}")
+
+            url = f"http://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={stock_symbol}&apikey=V4DXK2UU68OCQCUY"
+            response = requests.get(url)
+            stock_price_data = response.json()
+            price_string = stock_price_data["Global Quote"]["05. price"]
+            latest_close = float(price_string)
+            print(f"Latest close price: {latest_close}")
+            return latest_close
+        except Exception as e:
+            print("API's unavailable.")
+            stkpriceutil = StockPriceUtil()
+            return stkpriceutil.getLatestPrice(stock_symbol)
+            # return default_price * 1.25

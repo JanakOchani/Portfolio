@@ -3,6 +3,7 @@ import csv
 from PortfolioStock import Stock
 from StockPriceService import StockPriceService
 from StockPriceUtil import StockPriceUtil
+from DBService import DBService
 
 
 class PortfolioManager:
@@ -50,6 +51,22 @@ class PortfolioManager:
             stock.portfolio_value = round(stock.total_current_value/portfolio_value*100, 2)
         print(" Completed computing portfolio data now... ")
         return my_portfolio_stock_list
+
+        query = """
+        CREATE TABLE IF NOT EXISTS portfolios2 (
+            stock_code TEXT,
+            share_price FLOAT,
+            amount_of_shares INTEGER,
+            total_cost FLOAT,
+            current_price FLOAT,
+            current_value FLOAT,
+            profit_loss FLOAT,
+            week_52_high FLOAT,
+            account_percent FLOAT
+        );
+        """
+
+        DBService.execute_query(query)
 
     def  printPortfolio(self,portfolio):
         for stock in portfolio:
