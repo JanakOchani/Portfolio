@@ -52,21 +52,24 @@ class PortfolioManager:
         print(" Completed computing portfolio data now... ")
         return my_portfolio_stock_list
 
-        query = """
-        CREATE TABLE IF NOT EXISTS portfolios2 (
-            stock_code TEXT,
-            share_price FLOAT,
-            amount_of_shares INTEGER,
-            total_cost FLOAT,
-            current_price FLOAT,
-            current_value FLOAT,
-            profit_loss FLOAT,
-            week_52_high FLOAT,
-            account_percent FLOAT
-        );
-        """
-
-        DBService.execute_query(query)
+    def  storePortfolioInDB(self,portfolio):
+        try:
+            query = """
+            CREATE TABLE IF NOT EXISTS portfolios2 (
+                stock_code TEXT,
+                share_price FLOAT,
+                amount_of_shares INTEGER,
+                total_cost FLOAT,
+                current_price FLOAT,
+                current_value FLOAT,
+                profit_loss FLOAT,
+                week_52_high FLOAT,
+                account_percent FLOAT
+            );
+            """
+            DBService.execute_query(query)
+        except Exception as error
+            print("Got the error while storing portfolio in DB", error)
 
     def  printPortfolio(self,portfolio):
         for stock in portfolio:
@@ -99,6 +102,7 @@ class PortfolioManager:
         portfolio =  self.computePortfolioData(portfolio)
         self.generatePortfolioReport(portfolio,portfolio_file_name)
         self.printPortfolio(portfolio)
+        self.storePortfolioInDB(portfolio)
 
 
 
