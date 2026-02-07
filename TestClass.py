@@ -1,4 +1,4 @@
-class Janak:
+class TestClass:
 
     def __init__(self, name, country):
         self.name = name
