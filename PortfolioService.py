@@ -68,7 +68,19 @@ class PortfolioManager:
             );
             """
             DBService.execute_query(query)
-        except Exception as error
+
+            for stock in portfolio:
+                query = f"""
+                                INSERT INTO portfolios2
+                                (stock_code, share_price, amount_of_shares, total_cost, current_price, current_value, 
+                                profit_loss, week_52_high, account_percent)
+                                VALUES
+                                ('{stock.code}', {stock.cost_per_share}, {stock.shares}, {stock.total_cost},
+                                 {stock.current_price}, {stock.total_current_value}, {stock.profit_or_loss}, {stock.year_high}, {stock.portfolio_value})
+                            """
+                DBService.execute_query(query)
+
+        except Exception as error:
             print("Got the error while storing portfolio in DB", error)
 
     def  printPortfolio(self,portfolio):
